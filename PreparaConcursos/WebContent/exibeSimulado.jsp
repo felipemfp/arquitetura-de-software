@@ -18,17 +18,16 @@
 <p class="subtitle">Concurso:&nbsp;
 <%
 	Concurso c = (Concurso) request.getAttribute("concurso"); 
+	Simulado s = (Simulado) request.getAttribute("simulado");
+
 	out.print(c.getNome()); 
 %>
 </p>
 <hr/>
 
-<form action="/" method="post">
-<%
-	Simulado s = (Simulado) request.getAttribute("simulado");
+<form action="/PreparaConcursos/simulados?simulado=<% out.print(s.getId()); %>" method="post">
+<% for (Questao q : s.getQuestoes()) {%>
 	
-	for (Questao q : s.getQuestoes()) {
-	%>
 	
 	<div class="field">
 	<h4 class="title is-4"><% out.print(q.getEnunciado()); %></h4>
@@ -37,7 +36,7 @@
 	
 	<div class="control">
 		<label class="radio">
-			<input type="radio" name="questao-<%out.print(q.getId());%>">
+			<input type="radio" name="questao-<%out.print(q.getId());%>" value="<%out.print(a.getId());%>">
 			<% out.print(a.getEnunciado()); %>		
 		</label>
 	</div>
@@ -47,9 +46,7 @@
 	</div>
 	
 	
-	<%
-	}
-%>
+<% } %>
 
 <div class="field is-grouped">
   <div class="control">
