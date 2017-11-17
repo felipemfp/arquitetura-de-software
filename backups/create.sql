@@ -30,9 +30,14 @@ create table simulados_questoes (
 	primary key (simuladoId, questaoId)
 );
 
+create table simulados_resultados (
+	id serial primary key,
+	simuladoId integer not null references simulados
+);
+
 create table simulados_respostas (
 	id serial primary key,
-	simuladoId integer not null references simulados,
+	resultadoId integer not null references simulados_resultados,
 	questaoId integer not null references questoes,
 	alernativaId integer references alternativas
 );

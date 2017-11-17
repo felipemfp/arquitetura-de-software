@@ -50,6 +50,54 @@ public class QuestaoDAO {
 		return null;
 	}
 	
+	public List<Questao> listQuestoesPorSimulado(int simuladoId) {
+		if (con == null) return null;
+		
+		try {
+			Statement stmt = con.createStatement();
+			String SQL = "SELECT q.id, q.topicoId, q.enunciado FROM questoes q JOIN simulados_questoes s ON q.id = s.questaoId WHERE s.simuladoId = " + simuladoId;
+			ResultSet resultado = stmt.executeQuery(SQL);
+			return extraiQuestoes(resultado);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public Questao getQuestao(int id) {
+		if (con == null) return null;
+		
+		try {
+			Statement stmt = con.createStatement();
+			String SQL = "SELECT id, topicoId, enunciado FROM questoes WHERE id = " + id + " LIMIT 1";
+			ResultSet resultado = stmt.executeQuery(SQL);
+			return extraiQuestao(resultado);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	private Questao extraiQuestao(ResultSet r) throws SQLException {
+		
+		if (r.next()) {
+			Questao q = new Questao();
+			q.setId(r.getInt("id"));
+			q.setTopicoId(r.getInt("topicoId"));
+			q.setEnunciado(r.getString("enunciado"));
+			q.setAlternativas(listAlternativas(q.getId()));
+			return q;
+		}
+		
+		return null;
+	} 
+	
 	private List<Questao> extraiQuestoes(ResultSet r) throws SQLException {
 		List<Questao> l = new ArrayList<Questao>();
 		while (r.next()) {

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.ifrn.prepara.modelo.Questao;
+import br.ifrn.prepara.modelo.ResultadoSimulado;
 import br.ifrn.prepara.modelo.Simulado;
 
 public class SimuladoDAO {
@@ -37,7 +38,7 @@ public class SimuladoDAO {
 		
 		try {
 			Statement stmt = con.createStatement();
-			String SQL = "SELECT id, concursoId, criado FROM simulados WHERE id = " + id;
+			String SQL = "SELECT id, concursoId, criado FROM simulados WHERE id = " + id + " LIMIT 1";
 			ResultSet resultado = stmt.executeQuery(SQL);
 			return extraiSimulado(resultado);
 		} catch (SQLException e) {
@@ -58,7 +59,7 @@ public class SimuladoDAO {
 		}
 		return s;
 	}
-	
+
 	public boolean saveSimulado(Simulado s) {
 		if (con == null) return true;
 		
