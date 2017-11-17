@@ -38,7 +38,7 @@ public class GerenteSimulados {
 			resultado.addResposta(resposta);
 		}
 		
-		resultado.setPorcetagem(((double)corretas)/s.getQuestoes().size());
+		resultado.setPorcetagem(100  * (((double)corretas)/s.getQuestoes().size()));
 		
 		resultadoDao.saveResultado(resultado);
 		

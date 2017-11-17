@@ -30,7 +30,7 @@
 	out.print(c.getNome()); 
 %>
 </p>
-<p class="subtitle"><%= r.getPorcetagem() %>% de acerto</p>
+<progress class="progress is-medium is-success" value="<%=String.format("%2.0f", r.getPorcetagem())%>" max="100">String.format("%2.0f", r.getPorcetagem())% asmkamsdkm</progress>
 <hr/>
 
 <div>
